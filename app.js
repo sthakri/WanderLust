@@ -7,6 +7,7 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
@@ -34,9 +35,6 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
-app.get("/", (req, res) => {
-  res.send("Hi I am root");
-});
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -51,6 +49,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
   next();
 });
 
@@ -82,6 +81,10 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 
 app.use("/", userRouter);
+
+app.get("/", (req, res) => {
+  res.send("Hi I am root");
+});
 //Error Handling
 app.all(/.*/, (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));
