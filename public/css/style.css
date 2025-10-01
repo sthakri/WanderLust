@@ -122,3 +122,9 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* Map */
+#map {
+  height: 400px;
+  width: 80vh;
+}
