@@ -28,7 +28,6 @@ module.exports.showListing = async (req, res) => {
     return res.redirect("/listings");
   }
   // console.log(listing);
-  console.log(req.user.username);
   res.render("listings/show.ejs", { listing });
 };
 
