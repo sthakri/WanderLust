@@ -143,7 +143,7 @@
             data-rating="<%=review.rating%>"
           ></p>
           <p class="card-text"><%=review.comment%></p>
-
+          <% if(currUser){ %>
           <form
             action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=Delete"
             method="post"
@@ -151,6 +151,7 @@
           >
             <button class="btn btn-dark btn-sm">Delete</button>
           </form>
+          <%}%>
         </div>
       </div>
 
